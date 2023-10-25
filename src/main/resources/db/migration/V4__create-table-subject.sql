@@ -1,0 +1,5 @@
+CREATE TABLE school_subject(
+    id VARCHAR(255) NOT NULL PRIMARY KEY UNIQUE,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    carga_horaria DOUBLE NOT NULL
+)
