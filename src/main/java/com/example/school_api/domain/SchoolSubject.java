@@ -1,5 +1,6 @@
 package com.example.school_api.domain;
 
+import com.example.school_api.dtos.CreateSubjectDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +26,18 @@ public class SchoolSubject {
     private List<SchoolGrades> schoolGrades;
 
 
+    public SchoolSubject(CreateSubjectDto subjectDto) {
+        this.name = subjectDto.name();
+        this.cargaHoraria = subjectDto.cargaHoraria();
+    }
 
+    public void updateSubject(CreateSubjectDto subjectDto) {
+        if(subjectDto.name() != null && !subjectDto.name().isEmpty()){
+            this.name = subjectDto.name();
+        }
+        if(subjectDto.cargaHoraria() != null && !subjectDto.cargaHoraria().toString().isEmpty()){
+            this.cargaHoraria = subjectDto.cargaHoraria();
+        }
 
+    }
 }
