@@ -27,10 +27,17 @@ public abstract class Employee {
     private LocalDateTime endDate;
     private Boolean isActive = true;
 
+    public Employee(String name, String phone, Double salary) {
+        this.name = name;
+        this.phone = phone;
+        this.salary =salary;
+    }
+
     public void disableAnEmplooye(){
         setIsActive(false);
         setEndDate(LocalDateTime.now());
     }
+
 
 
 }

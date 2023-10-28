@@ -1,5 +1,7 @@
 package com.example.school_api.domain;
 
+import com.example.school_api.dtos.CreateProfessorDto;
+import com.example.school_api.dtos.UpdateProfessorDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,4 +23,21 @@ public class Professor extends Employee{
     private SchoolSubject schoolSubject;
 
 
+    public Professor(CreateProfessorDto professorDto, SchoolSubject schoolSubject) {
+        super(professorDto.name(), professorDto.phone(), professorDto.salary());
+        this.schoolSubject = schoolSubject;
+    }
+
+
+    public void updateProfessor(UpdateProfessorDto professorDto) {
+        if(professorDto.name() != null && professorDto.name().isEmpty()){
+            this.setName(professorDto.name());
+        }
+        if(professorDto.phone() != null && professorDto.phone().isEmpty()){
+            this.setPhone(professorDto.phone());
+        }
+        if(professorDto.salary() != null && professorDto.salary().toString().isEmpty()){
+            this.setSalary(professorDto.salary());
+        }
+    }
 }
