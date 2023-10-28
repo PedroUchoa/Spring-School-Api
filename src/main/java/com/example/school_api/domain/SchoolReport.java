@@ -1,6 +1,7 @@
 package com.example.school_api.domain;
 
 import com.example.school_api.dtos.CreateReportDTO;
+import com.example.school_api.dtos.UpdateGradeDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -46,4 +47,5 @@ public class SchoolReport {
         this.isActive = false;
         this.endDate = LocalDateTime.now();
     }
+
 }

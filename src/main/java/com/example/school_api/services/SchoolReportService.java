@@ -31,6 +31,10 @@ public class SchoolReportService {
         return schoolReportRepository.findAllReportByStudentName(name).stream().map(DetailReportDto::new).collect(Collectors.toList());
     }
 
+    public List<DetailReportDto> getAllReportsBySemester(String semester){
+        return schoolReportRepository.findAlBySemester(semester).stream().map(DetailReportDto::new).collect(Collectors.toList());
+    }
+
     public List<DetailReportDto> getAllReportsActivesWithStudentName(String name){
         return schoolReportRepository.findAllReportByisActiveTrueAndStudentName(name).stream().map(DetailReportDto::new).collect(Collectors.toList());
     }
