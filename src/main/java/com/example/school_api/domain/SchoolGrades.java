@@ -1,5 +1,7 @@
 package com.example.school_api.domain;
 
+import com.example.school_api.dtos.CreateGradeDto;
+import com.example.school_api.dtos.UpdateGradeDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,4 +31,19 @@ public class SchoolGrades {
             inverseJoinColumns = {@JoinColumn(name = "school_report_id")})
     private SchoolReport report;
 
+    public SchoolGrades(CreateGradeDto gradesDto, SchoolReport report,SchoolSubject subject) {
+        this.firstGrade = gradesDto.firstGrade();
+        this.secondGrade = gradesDto.secondGrade();
+        this.report = report;
+        this.schoolSubject = subject;
+    }
+
+    public void updateGrades(UpdateGradeDto gradeDto) {
+        if(gradeDto.firstGrade() != null && !gradeDto.firstGrade().toString().isEmpty()){
+            this.firstGrade = firstGrade;
+        }
+        if(gradeDto.secondGrade() != null && !gradeDto.secondGrade().toString().isEmpty()){
+            this.secondGrade = secondGrade;
+        }
+    }
 }
