@@ -1,7 +1,7 @@
 package com.example.school_api.domain;
 
 
-import com.example.school_api.dtos.CreateUserDto;
+import com.example.school_api.dtos.CreateStudentDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,12 +30,12 @@ public class Student {
     @OneToMany(mappedBy = "student", cascade = CascadeType.PERSIST)
     private List<SchoolReport> schoolReport;
 
-    public Student(CreateUserDto student) {
+    public Student(CreateStudentDto student) {
         this.name = student.name();
         this.phone = student.phone();
     }
 
-    public void updateStudent(CreateUserDto studentDto) {
+    public void updateStudent(CreateStudentDto studentDto) {
         if(studentDto.name() != null && !studentDto.name().isEmpty()){
             this.name = studentDto.name();
         }

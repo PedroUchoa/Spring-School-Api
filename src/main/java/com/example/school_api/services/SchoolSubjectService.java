@@ -16,8 +16,8 @@ public class SchoolSubjectService {
     @Autowired
     private SchoolSubjectRepository schoolSubjectRepository;
 
-    public void createSchoolSubject(CreateSubjectDto subjectDto){
-        schoolSubjectRepository.save(new SchoolSubject(subjectDto));
+    public SchoolSubject createSchoolSubject(CreateSubjectDto subjectDto){
+       return schoolSubjectRepository.save(new SchoolSubject(subjectDto));
     }
 
     public List<DetailSubjectDto> getAllSubjects(){

@@ -22,9 +22,10 @@ public class GeneralService {
     private ClassroomRepository classroomRepository;
 
 
-    public void createGeneralService(CreateGeneralServiceDto generalDto){
+    public SchoolGeneral createGeneralService(CreateGeneralServiceDto generalDto){
         Classroom classroom = classroomRepository.getByName(generalDto.name());
         SchoolGeneral schoolGeneral = new SchoolGeneral(generalDto,classroom);
+        return generalServiceRepository.save(schoolGeneral);
     }
 
     public List<DetailGeneralServiceDto> getAllGeneral(){

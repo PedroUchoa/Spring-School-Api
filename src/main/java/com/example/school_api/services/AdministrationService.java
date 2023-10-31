@@ -16,9 +16,9 @@ public class AdministrationService {
     @Autowired
     private AdministrationRepository administrationRepository;
 
-    public void createAdministration(CreateAdministrationDto administrationDto){
+    public Administration createAdministration(CreateAdministrationDto administrationDto){
         Administration administration = new Administration(administrationDto);
-        administrationRepository.save(administration);
+       return administrationRepository.save(administration);
     }
 
     public List<DetailAdministrationDto> listAllAdministrations(){

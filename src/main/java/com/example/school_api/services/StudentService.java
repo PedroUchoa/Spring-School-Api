@@ -1,7 +1,7 @@
 package com.example.school_api.services;
 
 import com.example.school_api.domain.Student;
-import com.example.school_api.dtos.CreateUserDto;
+import com.example.school_api.dtos.CreateStudentDto;
 import com.example.school_api.dtos.DetailStudentDto;
 import com.example.school_api.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,8 @@ public class StudentService {
     private StudentRepository studentRepository;
 
 
-    public void createUser(CreateUserDto studentDto){
-        studentRepository.save(new Student(studentDto));
+    public Student createUser(CreateStudentDto studentDto){
+      return studentRepository.save(new Student(studentDto));
     }
 
     public List<DetailStudentDto>  getAllStudents(){
@@ -39,7 +39,7 @@ public class StudentService {
         return new DetailStudentDto(student);
     }
 
-    public void updateStudent(String id, CreateUserDto studentDto){
+    public void updateStudent(String id, CreateStudentDto studentDto){
         Student student = studentRepository.getReferenceById(id);
         student.updateStudent(studentDto);
         studentRepository.save(student);

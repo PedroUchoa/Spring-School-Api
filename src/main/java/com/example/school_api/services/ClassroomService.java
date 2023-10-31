@@ -17,9 +17,9 @@ public class ClassroomService {
     @Autowired
     private ClassroomRepository classroomRepository;
 
-    public void createClassroom(CreateClassroomDto classroomDto){
+    public Classroom createClassroom(CreateClassroomDto classroomDto){
         Classroom classroom = new Classroom(classroomDto);
-        classroomRepository.save(classroom);
+        return classroomRepository.save(classroom);
     }
 
     public List<DetailClassroomDto> getAllClassrooms(){

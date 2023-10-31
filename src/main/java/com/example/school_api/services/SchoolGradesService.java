@@ -23,10 +23,12 @@ public class SchoolGradesService {
     @Autowired
     private SchoolSubjectRepository schoolSubjectRepository;
 
-    public void createGrades(CreateGradeDto gradesDto){
+    public SchoolGrades createGrades(CreateGradeDto gradesDto){
         SchoolReport report = schoolReportRepository.getReferenceById(gradesDto.reportId());
         SchoolSubject subject = schoolSubjectRepository.getByName(gradesDto.subjectName());
         SchoolGrades grades = new SchoolGrades(gradesDto, report,subject);
+        return schoolGradesRepository.save(grades);
+
     }
 
     public void updateGrades(UpdateGradeDto gradeDto, String id){

@@ -22,9 +22,10 @@ public class ProfessorService {
     @Autowired
     private SchoolSubjectRepository schoolSubjectRepository;
 
-    public void createProfessor(CreateProfessorDto professorDto){
+    public Professor createProfessor(CreateProfessorDto professorDto){
         SchoolSubject schoolSubject = schoolSubjectRepository.getByName(professorDto.subjectName());
         Professor professor = new Professor(professorDto, schoolSubject);
+        return professorRepository.save(professor);
     }
 
     public List<DetailProfessorDto> getAllProfessors(){

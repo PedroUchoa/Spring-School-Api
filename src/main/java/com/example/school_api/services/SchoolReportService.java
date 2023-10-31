@@ -21,10 +21,11 @@ public class SchoolReportService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public void createReport(CreateReportDTO reportDto){
+    public SchoolReport createReport(CreateReportDTO reportDto){
         Student student = studentRepository.findByName(reportDto.studentName());
         SchoolReport report = new SchoolReport(reportDto,student);
         schoolReportRepository.save(report);
+        return report;
     }
 
     public List<DetailReportDto> getAllReportsWithStudentName(String name){
@@ -37,6 +38,11 @@ public class SchoolReportService {
 
     public List<DetailReportDto> getAllReportsActivesWithStudentName(String name){
         return schoolReportRepository.findAllReportByisActiveTrueAndStudentName(name).stream().map(DetailReportDto::new).collect(Collectors.toList());
+    }
+
+    public DetailReportDto getReportById(String id){
+        SchoolReport schoolReportDto = schoolReportRepository.getReferenceById(id);
+        return new DetailReportDto(schoolReportDto);
     }
 
     public void desactiveReport(String id){
