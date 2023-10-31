@@ -35,6 +35,7 @@ public class StudentController {
         return ResponseEntity.ok().body(detailStudentDtos);
     }
 
+    @GetMapping("/actives")
     public ResponseEntity<List<DetailStudentDto>> getAllStudentsActives(){
         List<DetailStudentDto> detailStudentDtos = studentService.getAllStudentsActives();
         return ResponseEntity.ok().body(detailStudentDtos);

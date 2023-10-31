@@ -28,7 +28,7 @@ public class SchoolSubjectController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<DetailSubjectDto>> getAllSubjects(){
         List<DetailSubjectDto> subjectDtos = subjectService.getAllSubjects();
         return ResponseEntity.ok().body(subjectDtos);

@@ -41,7 +41,7 @@ public class SchoolReportController {
         return ResponseEntity.ok().body(detailReportDtos);
     }
 
-    @GetMapping("/actived")
+    @GetMapping("/actives")
     public ResponseEntity<List<DetailReportDto>> getAllReportsActivesWithStudentName(@RequestParam String name){
         List<DetailReportDto> detailReportDtos = reportService.getAllReportsActivesWithStudentName(name);
         return ResponseEntity.ok().body(detailReportDtos);
