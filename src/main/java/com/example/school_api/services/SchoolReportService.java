@@ -23,9 +23,16 @@ public class SchoolReportService {
 
     public SchoolReport createReport(CreateReportDTO reportDto){
         Student student = studentRepository.findByName(reportDto.studentName());
-        SchoolReport report = new SchoolReport(reportDto,student);
-        schoolReportRepository.save(report);
-        return report;
+        SchoolReport report = new SchoolReport();
+        report.setSemester(reportDto.semester());
+        report.setStudent(student);
+        System.out.println(report.getSemester());
+        return schoolReportRepository.save(report);
+
+    }
+
+    public List<DetailReportDto> getAllReports(){
+        return schoolReportRepository.findAll().stream().map(DetailReportDto::new).collect(Collectors.toList());
     }
 
     public List<DetailReportDto> getAllReportsWithStudentName(String name){
@@ -33,8 +40,16 @@ public class SchoolReportService {
     }
 
     public List<DetailReportDto> getAllReportsBySemester(String semester){
-        return schoolReportRepository.findAlBySemester(semester).stream().map(DetailReportDto::new).collect(Collectors.toList());
+        return schoolReportRepository.findAllBySemester(semester).stream().map(DetailReportDto::new).collect(Collectors.toList());
     }
+
+    public DetailReportDto getByStudentNameAndSemester(String semester, String name){
+        System.out.println(semester + " " + name);
+        SchoolReport report = schoolReportRepository.findBySemesterAndStudentName(semester, name);
+        System.out.println(report);
+        return new DetailReportDto(report);
+    }
+
 
     public List<DetailReportDto> getAllReportsActivesWithStudentName(String name){
         return schoolReportRepository.findAllReportByisActiveTrueAndStudentName(name).stream().map(DetailReportDto::new).collect(Collectors.toList());

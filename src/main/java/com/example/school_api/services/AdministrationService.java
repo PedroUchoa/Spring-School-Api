@@ -39,7 +39,7 @@ public class AdministrationService {
     }
 
     public DetailAdministrationDto findByName(String name){
-        Administration administration = administrationRepository.getReferenceById(name);
+        Administration administration = administrationRepository.getByName(name);
         return new DetailAdministrationDto(administration);
     }
 

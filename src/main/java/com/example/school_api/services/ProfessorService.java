@@ -50,7 +50,6 @@ public class ProfessorService {
         Professor professor = professorRepository.getReferenceById(id);
         professor.updateProfessor(professorDto);
         professorRepository.save(professor);
-
     }
 
     public void disableProfessor(String id){

@@ -27,7 +27,7 @@ public class ClassroomService {
     }
 
     public DetailClassroomDto getByName(String name){
-        Classroom classroom = classroomRepository.findByName();
+        Classroom classroom = classroomRepository.getByName(name);
         return new DetailClassroomDto(classroom);
     }
 
@@ -39,6 +39,7 @@ public class ClassroomService {
     public void updateClassroom(String id,CreateClassroomDto classroomDto){
         Classroom classroom = classroomRepository.getReferenceById(id);
         classroom.updateClassroom(classroomDto);
+        classroomRepository.save(classroom);
     }
 
 }
