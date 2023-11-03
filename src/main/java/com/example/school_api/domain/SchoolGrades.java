@@ -2,6 +2,8 @@ package com.example.school_api.domain;
 
 import com.example.school_api.dtos.CreateGradeDto;
 import com.example.school_api.dtos.UpdateGradeDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,12 +25,14 @@ public class SchoolGrades {
     @JoinTable(name = "subject_grades",
             joinColumns = {@JoinColumn(name = "school_grades_id")},
             inverseJoinColumns = {@JoinColumn(name = "school_subject_id")})
+    @JsonManagedReference
     private SchoolSubject schoolSubject;
 
     @ManyToOne
     @JoinTable(name = "report_grades",
             joinColumns = {@JoinColumn(name = "school_grades_id")},
             inverseJoinColumns = {@JoinColumn(name = "school_report_id")})
+    @JsonManagedReference
     private SchoolReport report;
 
     public SchoolGrades(CreateGradeDto gradesDto, SchoolReport report,SchoolSubject subject) {
@@ -40,10 +44,10 @@ public class SchoolGrades {
 
     public void updateGrades(UpdateGradeDto gradeDto) {
         if(gradeDto.firstGrade() != null && !gradeDto.firstGrade().toString().isEmpty()){
-            this.firstGrade = firstGrade;
+            this.firstGrade = gradeDto.firstGrade();
         }
         if(gradeDto.secondGrade() != null && !gradeDto.secondGrade().toString().isEmpty()){
-            this.secondGrade = secondGrade;
+            this.secondGrade = gradeDto.secondGrade();
         }
     }
 }

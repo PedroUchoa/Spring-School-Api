@@ -5,7 +5,8 @@ public enum AdministrationFunctions {
     ALMOXARIFADO("almoxarifado"),
     ADMINISTRACAO("administracao"),
     SERVICO_SOCIAL("serviço social"),
-    DIRETORIA("diretoria");
+    DIRETORIA("diretoria"),
+    CONTABILIDADE("contabilidade");
 
     private String administrationFunctions;
 

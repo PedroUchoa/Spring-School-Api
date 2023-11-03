@@ -38,7 +38,7 @@ public class Administration extends Employee{
             this.setSalary(administrationDto.salary());
         }
         if(administrationDto.functional() != null && !administrationDto.functional().getAdministrationFunctions().isEmpty()){
-            this.functional=administrationDto.functional();
+            this.setFunctional(administrationDto.functional());
         }
     }
 }

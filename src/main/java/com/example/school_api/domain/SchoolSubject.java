@@ -1,6 +1,9 @@
 package com.example.school_api.domain;
 
 import com.example.school_api.dtos.CreateSubjectDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,8 +24,11 @@ public class SchoolSubject {
     private String name;
     private Double cargaHoraria;
     @OneToOne(mappedBy = "schoolSubject")
+    @JsonBackReference
     private Professor professor;
+
     @OneToMany(mappedBy = "schoolSubject", cascade = CascadeType.PERSIST)
+    @JsonBackReference
     private List<SchoolGrades> schoolGrades;
 
 
@@ -32,9 +38,6 @@ public class SchoolSubject {
     }
 
     public void updateSubject(CreateSubjectDto subjectDto) {
-        if(subjectDto.name() != null && !subjectDto.name().isEmpty()){
-            this.name = subjectDto.name();
-        }
         if(subjectDto.cargaHoraria() != null && !subjectDto.cargaHoraria().toString().isEmpty()){
             this.cargaHoraria = subjectDto.cargaHoraria();
         }

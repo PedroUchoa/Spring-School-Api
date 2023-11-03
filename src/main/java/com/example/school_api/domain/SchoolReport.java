@@ -2,6 +2,9 @@ package com.example.school_api.domain;
 
 import com.example.school_api.dtos.CreateReportDTO;
 import com.example.school_api.dtos.UpdateGradeDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -28,20 +31,17 @@ public class SchoolReport {
     private LocalDateTime endDate;
 
     @OneToMany(mappedBy = "report", cascade = CascadeType.PERSIST)
+    @JsonBackReference
     private Set<SchoolGrades> schoolGrades;
 
     @ManyToOne
     @JoinTable(name = "report_student",
-            joinColumns = {@JoinColumn(name = "student_id")},
-            inverseJoinColumns = {@JoinColumn(name = "school_report_id")})
+            joinColumns = {@JoinColumn(name = "school_report_id")},
+            inverseJoinColumns = {@JoinColumn(name = "student_id")})
+    @JsonManagedReference
+    @JsonIgnore
     private Student student;
 
-
-
-    public SchoolReport(CreateReportDTO reportDto, Student student) {
-        this.semester = reportDto.semester();
-        this.student = student;
-    }
 
     public void desactiveReport() {
         this.isActive = false;

@@ -2,6 +2,7 @@ package com.example.school_api.domain;
 
 
 import com.example.school_api.dtos.CreateStudentDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -28,6 +29,7 @@ public class Student {
     private LocalDateTime endDate;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.PERSIST)
+    @JsonBackReference
     private List<SchoolReport> schoolReport;
 
     public Student(CreateStudentDto student) {
