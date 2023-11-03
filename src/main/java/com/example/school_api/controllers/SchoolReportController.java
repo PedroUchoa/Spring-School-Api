@@ -29,15 +29,27 @@ public class SchoolReportController {
         return ResponseEntity.created(uri).build();
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<DetailReportDto>> getAllReports(){
+        List<DetailReportDto> detailReportDtos = reportService.getAllReports();
+        return ResponseEntity.ok().body(detailReportDtos);
+    }
+
     @GetMapping("/student")
     public ResponseEntity<List<DetailReportDto>> getAllReportsWithStudentName(@RequestParam String name){
         List<DetailReportDto> detailReportDtos = reportService.getAllReportsWithStudentName(name);
         return ResponseEntity.ok().body(detailReportDtos);
     }
 
-    @GetMapping("/{semester}")
-    public ResponseEntity<List<DetailReportDto>> getAllReportsBySemester(@PathVariable String semester){
+    @GetMapping
+    public ResponseEntity<List<DetailReportDto>> getAllReportsBySemester(@RequestParam String semester){
         List<DetailReportDto> detailReportDtos = reportService.getAllReportsBySemester(semester);
+        return ResponseEntity.ok().body(detailReportDtos);
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<DetailReportDto> getAllReportsActivesWithStudentNameAndSemester(@RequestParam String name,@RequestParam String semester){
+        DetailReportDto detailReportDtos = reportService.getByStudentNameAndSemester(semester,name);
         return ResponseEntity.ok().body(detailReportDtos);
     }
 

@@ -34,8 +34,8 @@ public class SchoolSubjectController {
         return ResponseEntity.ok().body(subjectDtos);
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<DetailSubjectDto> getSubjectByName(@PathVariable String name){
+    @GetMapping
+    public ResponseEntity<DetailSubjectDto> getSubjectByName(@RequestParam String name){
         DetailSubjectDto subjectDtos = subjectService.getSubjectByName(name);
         return ResponseEntity.ok().body(subjectDtos);
     }

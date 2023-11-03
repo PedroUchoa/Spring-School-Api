@@ -34,7 +34,7 @@ public class ClassroomController {
         return ResponseEntity.ok().body(classroomDtos);
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("name/{name}")
     public ResponseEntity<DetailClassroomDto> getByName(@PathVariable String name){
         DetailClassroomDto classroomDto = classroomService.getByName(name);
         return ResponseEntity.ok().body(classroomDto);

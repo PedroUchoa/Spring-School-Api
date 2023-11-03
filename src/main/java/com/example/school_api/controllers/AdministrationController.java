@@ -40,13 +40,13 @@ public class AdministrationController {
         return ResponseEntity.ok().body(administrationDtos);
     }
 
-    @GetMapping("/{function}")
+    @GetMapping("/function/{function}")
     public ResponseEntity<List<DetailAdministrationDto>> findByFunctions(@PathVariable String function){
         List<DetailAdministrationDto> administrationDto = administrationService.findByFunctions(function);
         return ResponseEntity.ok().body(administrationDto);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/value/{id}")
     public ResponseEntity<DetailAdministrationDto> findById(@PathVariable String id){
         DetailAdministrationDto administrationDto = administrationService.findById(id);
         return ResponseEntity.ok().body(administrationDto);

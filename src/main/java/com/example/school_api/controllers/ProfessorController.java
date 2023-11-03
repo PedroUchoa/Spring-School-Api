@@ -41,7 +41,7 @@ public class ProfessorController {
         return ResponseEntity.ok().body(professorDtos);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("value/{id}")
     public ResponseEntity<DetailProfessorDto> getProfessorById(@PathVariable String id){
         DetailProfessorDto professorDto = professorService.getProfessorById(id);
         return ResponseEntity.ok().body(professorDto);
