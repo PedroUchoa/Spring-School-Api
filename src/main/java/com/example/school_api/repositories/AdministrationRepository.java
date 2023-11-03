@@ -12,4 +12,6 @@ public interface AdministrationRepository extends JpaRepository<Administration,S
     List<Administration> findAllByIsActiveTrue();
 
     List<Administration> findAllByFunctionalAndIsActiveTrue(String function);
+
+    Administration getByName(String name);
 }

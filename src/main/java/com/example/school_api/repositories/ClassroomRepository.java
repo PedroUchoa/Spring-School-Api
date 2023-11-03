@@ -8,5 +8,4 @@ import java.util.Arrays;
 public interface ClassroomRepository extends JpaRepository<Classroom,String> {
     Classroom getByName(String name);
 
-    Classroom findByName();
 }
