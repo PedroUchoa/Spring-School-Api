@@ -6,5 +6,5 @@ CREATE TABLE administrations(
         phone VARCHAR(255) NOT NULL,
         start_date DATE NOT NULL,
         end_date DATE,
-        functional VARCHAR(255) NOT NULL UNIQUE
+        functional VARCHAR(255) NOT NULL
 )
