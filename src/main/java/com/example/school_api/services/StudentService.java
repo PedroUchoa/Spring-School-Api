@@ -3,6 +3,9 @@ package com.example.school_api.services;
 import com.example.school_api.domain.Student;
 import com.example.school_api.dtos.CreateStudentDto;
 import com.example.school_api.dtos.DetailStudentDto;
+import com.example.school_api.exceptions.DuplicatedStudentException;
+import com.example.school_api.exceptions.IsAlreadyDesactivedException;
+import com.example.school_api.exceptions.StudentNotFoundException;
 import com.example.school_api.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +20,12 @@ public class StudentService {
     private StudentRepository studentRepository;
 
 
-    public Student createUser(CreateStudentDto studentDto){
-      return studentRepository.save(new Student(studentDto));
+    public Student createUser(CreateStudentDto studentDto) throws DuplicatedStudentException {
+        Student student = new Student(studentDto);
+        if(studentRepository.findByName(studentDto.name()) != null){
+            throw new DuplicatedStudentException(studentDto.name());
+        }
+        return studentRepository.save(student);
     }
 
     public List<DetailStudentDto>  getAllStudents(){
@@ -29,26 +36,29 @@ public class StudentService {
         return studentRepository.findStudentByIsActiveTrue().stream().map(DetailStudentDto::new).collect(Collectors.toList());
     }
 
-    public DetailStudentDto getStudentByName(String name){
+    public DetailStudentDto getStudentByName(String name) throws StudentNotFoundException {
         Student student = studentRepository.findByName(name);
+        if(student == null){
+            throw new StudentNotFoundException();
+        }
         return new DetailStudentDto(student);
     }
 
-    public DetailStudentDto getStudentById(String id){
-        Student student = studentRepository.getReferenceById(id);
+    public DetailStudentDto getStudentById(String id) throws StudentNotFoundException {
+        Student student = studentRepository.findById(id).orElseThrow(()->new StudentNotFoundException());
         return new DetailStudentDto(student);
     }
 
-    public void updateStudent(String id, CreateStudentDto studentDto){
-        Student student = studentRepository.getReferenceById(id);
+    public void updateStudent(String id, CreateStudentDto studentDto) throws StudentNotFoundException {
+        Student student = studentRepository.findById(id).orElseThrow(()->new StudentNotFoundException());
         student.updateStudent(studentDto);
         studentRepository.save(student);
     }
 
-    public void disableStudent(String id){
-        Student student = studentRepository.getReferenceById(id);
-        if(student ==null && !student.isActive()){
-            throw new IllegalArgumentException("invalido");
+    public void disableStudent(String id) throws StudentNotFoundException, IsAlreadyDesactivedException {
+        Student student = studentRepository.findById(id).orElseThrow(()->new StudentNotFoundException());
+        if (!student.isActive()){
+            throw new IsAlreadyDesactivedException(student.getName());
         }
         student.setActive(false);
         studentRepository.save(student);
