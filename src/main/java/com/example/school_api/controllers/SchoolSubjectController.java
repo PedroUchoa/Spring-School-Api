@@ -35,20 +35,20 @@ public class SchoolSubjectController {
     }
 
     @GetMapping
-    public ResponseEntity<DetailSubjectDto> getSubjectByName(@RequestParam String name){
+    public ResponseEntity<DetailSubjectDto> getSubjectByName(@RequestParam String name)throws Exception{
         DetailSubjectDto subjectDtos = subjectService.getSubjectByName(name);
         return ResponseEntity.ok().body(subjectDtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DetailSubjectDto> getSubjectById(@PathVariable String id){
+    public ResponseEntity<DetailSubjectDto> getSubjectById(@PathVariable String id)throws Exception{
         DetailSubjectDto subjectDtos = subjectService.getSubjectById(id);
         return ResponseEntity.ok().body(subjectDtos);
     }
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<Void> updateSubject(@PathVariable String id,@RequestBody CreateSubjectDto subjectDto){
+    public ResponseEntity<Void> updateSubject(@PathVariable String id,@RequestBody CreateSubjectDto subjectDto)throws Exception{
         subjectService.updateSubject(id,subjectDto);
         return ResponseEntity.noContent().build();
 

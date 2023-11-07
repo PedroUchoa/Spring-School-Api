@@ -3,6 +3,7 @@ package com.example.school_api.services;
 import com.example.school_api.domain.SchoolSubject;
 import com.example.school_api.dtos.CreateSubjectDto;
 import com.example.school_api.dtos.DetailSubjectDto;
+import com.example.school_api.exceptions.SubjectNotFoundException;
 import com.example.school_api.repositories.SchoolSubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,19 +25,22 @@ public class SchoolSubjectService {
         return schoolSubjectRepository.findAll().stream().map(DetailSubjectDto::new).collect(Collectors.toList());
     }
 
-    public DetailSubjectDto getSubjectByName(String name){
+    public DetailSubjectDto getSubjectByName(String name) throws SubjectNotFoundException {
         SchoolSubject subject = schoolSubjectRepository.getByName(name);
+        if(subject == null){
+            throw new SubjectNotFoundException();
+        }
         return new DetailSubjectDto(subject);
     }
 
-    public DetailSubjectDto getSubjectById(String id){
-        SchoolSubject subject = schoolSubjectRepository.getReferenceById(id);
+    public DetailSubjectDto getSubjectById(String id) throws SubjectNotFoundException {
+        SchoolSubject subject = schoolSubjectRepository.findById(id).orElseThrow(()-> new SubjectNotFoundException());
         return new DetailSubjectDto(subject);
     }
 
 
-    public void updateSubject(String id, CreateSubjectDto subjectDto){
-        SchoolSubject subject = schoolSubjectRepository.getReferenceById(id);
+    public void updateSubject(String id, CreateSubjectDto subjectDto) throws SubjectNotFoundException {
+        SchoolSubject subject = schoolSubjectRepository.findById(id).orElseThrow(()-> new SubjectNotFoundException());
         subject.updateSubject(subjectDto);
         schoolSubjectRepository.save(subject);
     }
