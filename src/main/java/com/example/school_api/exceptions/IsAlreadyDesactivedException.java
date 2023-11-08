@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class IsAlreadyDesactivedException extends Exception{
 
     public IsAlreadyDesactivedException(String name){
-        super(name + "  está desativado(a)");
+        super(name + " está desativado(a)");
     }
 
 

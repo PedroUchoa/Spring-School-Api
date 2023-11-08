@@ -23,7 +23,7 @@ public class SchoolGradeController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Void> createGrades(@RequestBody CreateGradeDto gradeDto, UriComponentsBuilder componentsBuilder){
+    public ResponseEntity<Void> createGrades(@RequestBody CreateGradeDto gradeDto, UriComponentsBuilder componentsBuilder)throws Exception{
         SchoolGrades grades = schoolGradesService.createGrades(gradeDto);
         URI uri = componentsBuilder.path("/grade/{id}").buildAndExpand(grades.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -37,7 +37,7 @@ public class SchoolGradeController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<Void> updateGrades(@RequestBody UpdateGradeDto gradeDto, @PathVariable String id){
+    public ResponseEntity<Void> updateGrades(@RequestBody UpdateGradeDto gradeDto, @PathVariable String id)throws Exception{
         schoolGradesService.updateGrades(gradeDto,id);
         return ResponseEntity.noContent().build();
     }

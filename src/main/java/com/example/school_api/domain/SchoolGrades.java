@@ -33,6 +33,7 @@ public class SchoolGrades {
             joinColumns = {@JoinColumn(name = "school_grades_id")},
             inverseJoinColumns = {@JoinColumn(name = "school_report_id")})
     @JsonManagedReference
+    @JsonIgnore
     private SchoolReport report;
 
     public SchoolGrades(CreateGradeDto gradesDto, SchoolReport report,SchoolSubject subject) {

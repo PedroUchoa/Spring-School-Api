@@ -63,7 +63,9 @@ public class SchoolReportService {
     }
 
     public DetailReportDto getByStudentNameAndSemester(String semester, String name) throws ReportNotFoundException {
+
         SchoolReport report = schoolReportRepository.findBySemesterAndStudentName(semester, name);
+
         if(report == null){
         throw new ReportNotFoundException();
         }

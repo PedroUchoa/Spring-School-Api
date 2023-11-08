@@ -6,6 +6,10 @@ import com.example.school_api.domain.SchoolSubject;
 import com.example.school_api.dtos.CreateGradeDto;
 import com.example.school_api.dtos.DetailGradesDto;
 import com.example.school_api.dtos.UpdateGradeDto;
+import com.example.school_api.exceptions.GradesNotFoundException;
+import com.example.school_api.exceptions.IsAlreadyDesactivedException;
+import com.example.school_api.exceptions.ReportNotFoundException;
+import com.example.school_api.exceptions.SubjectNotFoundException;
 import com.example.school_api.repositories.SchoolGradesRepository;
 import com.example.school_api.repositories.SchoolReportRepository;
 import com.example.school_api.repositories.SchoolSubjectRepository;
@@ -27,9 +31,18 @@ public class SchoolGradesService {
     @Autowired
     private SchoolSubjectRepository schoolSubjectRepository;
 
-    public SchoolGrades createGrades(CreateGradeDto gradesDto){
+    public SchoolGrades createGrades(CreateGradeDto gradesDto) throws ReportNotFoundException, SubjectNotFoundException, IsAlreadyDesactivedException {
         SchoolReport report = schoolReportRepository.findBySemesterAndStudentName(gradesDto.reportSemester(), gradesDto.studentName());
         SchoolSubject subject = schoolSubjectRepository.getByName(gradesDto.subjectName());
+        if(report == null){
+            throw new ReportNotFoundException();
+        }
+        if(!report.getStudent().isActive()){
+            throw new IsAlreadyDesactivedException(report.getStudent().getName());
+        }
+        if(subject == null){
+            throw new SubjectNotFoundException();
+        }
         SchoolGrades grades = new SchoolGrades(gradesDto, report,subject);
         return schoolGradesRepository.save(grades);
 
@@ -39,8 +52,8 @@ public class SchoolGradesService {
         return schoolGradesRepository.findAllByReportStudentNameAndReportSemester(name,semester).stream().map(DetailGradesDto::new).collect(Collectors.toList());
     }
 
-    public void updateGrades(UpdateGradeDto gradeDto, String id){
-        SchoolGrades grades = schoolGradesRepository.getReferenceById(id);
+    public void updateGrades(UpdateGradeDto gradeDto, String id) throws GradesNotFoundException {
+        SchoolGrades grades = schoolGradesRepository.findById(id).orElseThrow(()->new GradesNotFoundException());
         grades.updateGrades(gradeDto);
         schoolGradesRepository.save(grades);
     }
