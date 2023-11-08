@@ -23,7 +23,7 @@ public class SchoolReportController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Void> createReport(@RequestBody CreateReportDTO reportDTO, UriComponentsBuilder componentsBuilder){
+    public ResponseEntity<Void> createReport(@RequestBody CreateReportDTO reportDTO, UriComponentsBuilder componentsBuilder)throws Exception{
         SchoolReport schoolReport = reportService.createReport(reportDTO);
         URI uri = componentsBuilder.path("/report/{id}").buildAndExpand(schoolReport.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -36,37 +36,37 @@ public class SchoolReportController {
     }
 
     @GetMapping("/student")
-    public ResponseEntity<List<DetailReportDto>> getAllReportsWithStudentName(@RequestParam String name){
+    public ResponseEntity<List<DetailReportDto>> getAllReportsWithStudentName(@RequestParam String name)throws Exception{
         List<DetailReportDto> detailReportDtos = reportService.getAllReportsWithStudentName(name);
         return ResponseEntity.ok().body(detailReportDtos);
     }
 
     @GetMapping
-    public ResponseEntity<List<DetailReportDto>> getAllReportsBySemester(@RequestParam String semester){
-        List<DetailReportDto> detailReportDtos = reportService.getAllReportsBySemester(semester);
+    public ResponseEntity<List<DetailReportDto>> getAllReportsBySemester(@RequestParam String semester)throws Exception{
+        List <DetailReportDto> detailReportDtos = reportService.getReportBySemester(semester);
         return ResponseEntity.ok().body(detailReportDtos);
     }
 
     @GetMapping("/info")
-    public ResponseEntity<DetailReportDto> getAllReportsActivesWithStudentNameAndSemester(@RequestParam String name,@RequestParam String semester){
+    public ResponseEntity<DetailReportDto> getAllReportsActivesWithStudentNameAndSemester(@RequestParam String name,@RequestParam String semester)throws Exception{
         DetailReportDto detailReportDtos = reportService.getByStudentNameAndSemester(semester,name);
         return ResponseEntity.ok().body(detailReportDtos);
     }
 
     @GetMapping("/actives")
-    public ResponseEntity<List<DetailReportDto>> getAllReportsActivesWithStudentName(@RequestParam String name){
+    public ResponseEntity<List<DetailReportDto>> getAllReportsActivesWithStudentName(@RequestParam String name)throws Exception{
         List<DetailReportDto> detailReportDtos = reportService.getAllReportsActivesWithStudentName(name);
         return ResponseEntity.ok().body(detailReportDtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DetailReportDto> getReportById(@PathVariable String id){
+    public ResponseEntity<DetailReportDto> getReportById(@PathVariable String id)throws Exception{
         DetailReportDto detailReportDto = reportService.getReportById(id);
         return ResponseEntity.ok().body(detailReportDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> desactiveReport(@PathVariable String id){
+    public ResponseEntity<Void> desactiveReport(@PathVariable String id)throws Exception{
         reportService.desactiveReport(id);
         return ResponseEntity.noContent().build();
     }

@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(StudentNotFoundException.class)
     public ResponseEntity<String> handleStudentNotFoundException(Exception ex){
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage() + "\n" + ex.getClass());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage() + "\n" + ex.getClass());
     }
 
     @ExceptionHandler(IsAlreadyDesactivedException.class)
@@ -25,7 +25,21 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(SubjectNotFoundException.class)
     public ResponseEntity<String> handleSubjectNotFoundException(Exception ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage() + "\n" + ex.getClass());
+    }
+
+    @ExceptionHandler(ReportNotFoundException.class)
+    public ResponseEntity<String> handleReportNotFoundException(Exception ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage() + "\n" + ex.getClass());
+    }
+    @ExceptionHandler(SemesterDuplicatedException.class)
+    public ResponseEntity<String> handleSemesterDuplicatedException(Exception ex){
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage() + "\n" + ex.getClass());
+    }
+
+    @ExceptionHandler(SemesterNotFoundException.class)
+    public ResponseEntity<String> handleSemesterNotFoundException(Exception ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage() + "\n" + ex.getClass());
     }
 
 
