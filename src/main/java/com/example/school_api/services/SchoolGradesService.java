@@ -6,10 +6,7 @@ import com.example.school_api.domain.SchoolSubject;
 import com.example.school_api.dtos.CreateGradeDto;
 import com.example.school_api.dtos.DetailGradesDto;
 import com.example.school_api.dtos.UpdateGradeDto;
-import com.example.school_api.exceptions.GradesNotFoundException;
-import com.example.school_api.exceptions.IsAlreadyDesactivedException;
-import com.example.school_api.exceptions.ReportNotFoundException;
-import com.example.school_api.exceptions.SubjectNotFoundException;
+import com.example.school_api.exceptions.*;
 import com.example.school_api.repositories.SchoolGradesRepository;
 import com.example.school_api.repositories.SchoolReportRepository;
 import com.example.school_api.repositories.SchoolSubjectRepository;
@@ -31,18 +28,25 @@ public class SchoolGradesService {
     @Autowired
     private SchoolSubjectRepository schoolSubjectRepository;
 
-    public SchoolGrades createGrades(CreateGradeDto gradesDto) throws ReportNotFoundException, SubjectNotFoundException, IsAlreadyDesactivedException {
+    public SchoolGrades createGrades(CreateGradeDto gradesDto) throws ReportNotFoundException, SubjectNotFoundException, IsAlreadyDesactivedException, DuplicatedSubjectException {
         SchoolReport report = schoolReportRepository.findBySemesterAndStudentName(gradesDto.reportSemester(), gradesDto.studentName());
         SchoolSubject subject = schoolSubjectRepository.getByName(gradesDto.subjectName());
         if(report == null){
             throw new ReportNotFoundException();
         }
+        if(schoolReportRepository.findReportBySemesterAndStudentNameAndSchoolGradesSchoolSubjectName(gradesDto.reportSemester(),gradesDto.studentName(),gradesDto.subjectName()) != null){
+            throw new DuplicatedSubjectException(gradesDto.subjectName());
+        }
         if(!report.getStudent().isActive()){
             throw new IsAlreadyDesactivedException(report.getStudent().getName());
+        }
+        if(!report.getIsActive()){
+            throw new IsAlreadyDesactivedException("report");
         }
         if(subject == null){
             throw new SubjectNotFoundException();
         }
+
         SchoolGrades grades = new SchoolGrades(gradesDto, report,subject);
         return schoolGradesRepository.save(grades);
 
