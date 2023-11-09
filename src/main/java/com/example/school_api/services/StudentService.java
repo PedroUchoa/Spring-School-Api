@@ -61,6 +61,7 @@ public class StudentService {
             throw new IsAlreadyDesactivedException(student.getName());
         }
         student.setActive(false);
+        student.getSchoolReport().forEach(x->x.desactiveReport());
         studentRepository.save(student);
     }
 
