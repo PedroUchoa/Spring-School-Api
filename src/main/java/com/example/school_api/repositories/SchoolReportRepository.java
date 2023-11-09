@@ -15,4 +15,6 @@ public interface SchoolReportRepository extends JpaRepository<SchoolReport,Strin
     List<SchoolReport> findAllBySemester(String semester);
 
     SchoolReport findBySemesterAndStudentName( String semester,String studentName);
+
+    SchoolReport findReportBySemesterAndStudentNameAndSchoolGradesSchoolSubjectName(String reportSemester, String studentName, String subjectName);
 }

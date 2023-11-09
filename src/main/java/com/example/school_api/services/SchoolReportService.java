@@ -24,20 +24,16 @@ public class SchoolReportService {
 
     public SchoolReport createReport(CreateReportDTO reportDto) throws StudentNotFoundException, IsAlreadyDesactivedException, SemesterDuplicatedException {
         Student student = studentRepository.findByName(reportDto.studentName());
-        SchoolReport reportTest = schoolReportRepository.findBySemesterAndStudentName(reportDto.semester(), reportDto.studentName());
-        System.out.println(reportTest);
         if(student == null){
             throw new StudentNotFoundException();
         }
         if(!student.isActive()){
             throw new IsAlreadyDesactivedException(student.getName());
         }
-        if(reportTest != null){
+        if(schoolReportRepository.findBySemesterAndStudentName(reportDto.semester(),reportDto.studentName()) != null){
             throw new SemesterDuplicatedException(reportDto.semester());
         }
-        SchoolReport report = new SchoolReport();
-        report.setSemester(reportDto.semester());
-        report.setStudent(student);
+        SchoolReport report = new SchoolReport(reportDto.semester(), student);
         return schoolReportRepository.save(report);
 
     }

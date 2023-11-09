@@ -42,6 +42,10 @@ public class SchoolReport {
     @JsonIgnore
     private Student student;
 
+    public SchoolReport(String semester, Student student) {
+        this.semester = semester;
+        this.student = student;
+    }
 
     public void desactiveReport() {
         this.isActive = false;
