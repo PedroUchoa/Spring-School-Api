@@ -23,7 +23,7 @@ public class ProfessorController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Void> createProfessor(@RequestBody CreateProfessorDto professorDto, UriComponentsBuilder componentsBuilder){
+    public ResponseEntity<Void> createProfessor(@RequestBody CreateProfessorDto professorDto, UriComponentsBuilder componentsBuilder) throws Exception{
         Professor professor = professorService.createProfessor(professorDto);
         URI uri = componentsBuilder.path("/professor/{id}").buildAndExpand(professor.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -42,27 +42,27 @@ public class ProfessorController {
     }
 
     @GetMapping("value/{id}")
-    public ResponseEntity<DetailProfessorDto> getProfessorById(@PathVariable String id){
+    public ResponseEntity<DetailProfessorDto> getProfessorById(@PathVariable String id)throws Exception{
         DetailProfessorDto professorDto = professorService.getProfessorById(id);
         return ResponseEntity.ok().body(professorDto);
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<DetailProfessorDto> getProfessorByName(@PathVariable String name){
+    public ResponseEntity<DetailProfessorDto> getProfessorByName(@PathVariable String name)throws Exception{
         DetailProfessorDto professorDto = professorService.getProfessorByName(name);
         return ResponseEntity.ok().body(professorDto);
     }
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<Void> updateProfessor(@PathVariable String id, @RequestBody UpdateProfessorDto professorDto){
+    public ResponseEntity<Void> updateProfessor(@PathVariable String id, @RequestBody UpdateProfessorDto professorDto)throws Exception{
         professorService.updateProfessor(id,professorDto);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Void> disableProfessor(@PathVariable String id){
+    public ResponseEntity<Void> disableProfessor(@PathVariable String id)throws Exception{
         professorService.disableProfessor(id);
         return ResponseEntity.noContent().build();
     }

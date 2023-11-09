@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class DuplicatedStudentException extends Exception{
 
     public DuplicatedStudentException(String name){
-        super("Já existe um usuario com o nome: " + name);
+        super("Já existe um estudante com o nome: " + name);
     }
 
 }

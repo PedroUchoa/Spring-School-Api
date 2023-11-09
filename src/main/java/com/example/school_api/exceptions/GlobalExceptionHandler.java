@@ -52,4 +52,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage() + "\n" + ex.getClass());
     }
 
+    @ExceptionHandler(DuplicatedProfessorException.class)
+    public ResponseEntity<String> handleDuplicatedProfessorException(Exception ex){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage() + "\n" + ex.getClass());
+    }
+
+    @ExceptionHandler(ProfessorNotFoundException.class)
+    public ResponseEntity<String> handleProfessorNotFoundException(Exception ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage() + "\n" + ex.getClass());
+    }
+
+
 }

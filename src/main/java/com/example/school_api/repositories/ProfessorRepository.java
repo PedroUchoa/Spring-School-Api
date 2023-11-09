@@ -10,4 +10,8 @@ public interface ProfessorRepository extends JpaRepository<Professor,String> {
     List<Professor> findAllByIsActiveTrue();
 
     Professor getByName(String name);
+
+    Professor findBySchoolSubjectNameAndIsActiveTrue(String subjectName);
+
+    Professor getByNameAndIsActiveTrue(String name);
 }
