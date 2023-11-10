@@ -82,4 +82,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage() + "\n" + ex.getClass());
     }
 
+    @ExceptionHandler(AdministrationNotFoundException.class)
+    public ResponseEntity<String> handleAdministrationNotFoundException(Exception ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage() + "\n" + ex.getClass());
+    }
+
 }

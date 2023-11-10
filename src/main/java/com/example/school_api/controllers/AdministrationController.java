@@ -22,7 +22,7 @@ public class AdministrationController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Void> createAdministration(@RequestBody CreateAdministrationDto createAdministrationDto, UriComponentsBuilder componentsBuilder){
+    public ResponseEntity<Void> createAdministration(@RequestBody CreateAdministrationDto createAdministrationDto, UriComponentsBuilder componentsBuilder)throws Exception{
         Administration administration = administrationService.createAdministration(createAdministrationDto);
         URI uri = componentsBuilder.path("/administration/{id}").buildAndExpand(administration.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -47,27 +47,27 @@ public class AdministrationController {
     }
 
     @GetMapping("/value/{id}")
-    public ResponseEntity<DetailAdministrationDto> findById(@PathVariable String id){
+    public ResponseEntity<DetailAdministrationDto> findById(@PathVariable String id) throws Exception{
         DetailAdministrationDto administrationDto = administrationService.findById(id);
         return ResponseEntity.ok().body(administrationDto);
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<DetailAdministrationDto> findByName(@PathVariable String name){
+    public ResponseEntity<DetailAdministrationDto> findByName(@PathVariable String name) throws Exception{
         DetailAdministrationDto administrationDto = administrationService.findByName(name);
         return ResponseEntity.ok().body(administrationDto);
     }
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<Void> updatAdministration(@PathVariable String id, @RequestBody CreateAdministrationDto administrationDto){
+    public ResponseEntity<Void> updatAdministration(@PathVariable String id, @RequestBody CreateAdministrationDto administrationDto) throws Exception{
         administrationService.updatAdministration(id,administrationDto);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Void> disableAdministration(@PathVariable String id){
+    public ResponseEntity<Void> disableAdministration(@PathVariable String id)throws Exception{
         administrationService.disableAdministration(id);
         return ResponseEntity.noContent().build();
     }
