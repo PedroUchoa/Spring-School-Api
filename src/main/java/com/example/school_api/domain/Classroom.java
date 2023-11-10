@@ -1,8 +1,11 @@
 package com.example.school_api.domain;
 
 import com.example.school_api.dtos.CreateClassroomDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Table(name = "classrooms")
 @Entity(name = "Classroom")
@@ -17,8 +20,9 @@ public class Classroom {
     private String id;
     private String name;
     private String localization;
-    @OneToOne(mappedBy = "classroom")
-    private SchoolGeneral schoolGeneral;
+    @OneToMany(mappedBy = "classroom", cascade = CascadeType.PERSIST)
+    @JsonBackReference
+    private List<SchoolGeneral> schoolGeneral;
 
     public Classroom(CreateClassroomDto classroomDto) {
         this.name = classroomDto.name();

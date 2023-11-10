@@ -10,4 +10,6 @@ public interface GeneralServiceRepository extends JpaRepository<SchoolGeneral,St
     List<SchoolGeneral> findAllByIsActiveTrue();
 
     SchoolGeneral getByName(String name);
+
+    SchoolGeneral getByNameAndIsActiveTrue(String name);
 }

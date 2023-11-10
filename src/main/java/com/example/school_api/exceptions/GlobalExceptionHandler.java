@@ -62,5 +62,20 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage() + "\n" + ex.getClass());
     }
 
+    @ExceptionHandler(ClassroomNotFoundException.class)
+    public ResponseEntity<String> handleClassroomNotFoundException(Exception ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage() + "\n" + ex.getClass());
+    }
+
+    @ExceptionHandler(GeneralNotFoundException.class)
+    public ResponseEntity<String> handleGeneralNotFoundException(Exception ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage() + "\n" + ex.getClass());
+    }
+
+    @ExceptionHandler(GeneralDuplicatedException.class)
+    public ResponseEntity<String> handleGeneralDuplicatedException(Exception ex){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage() + "\n" + ex.getClass());
+    }
+
 
 }

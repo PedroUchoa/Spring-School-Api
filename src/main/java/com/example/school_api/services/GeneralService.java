@@ -2,8 +2,13 @@ package com.example.school_api.services;
 
 import com.example.school_api.domain.Classroom;
 import com.example.school_api.domain.SchoolGeneral;
+import com.example.school_api.domain.SchoolSubject;
 import com.example.school_api.dtos.CreateGeneralServiceDto;
 import com.example.school_api.dtos.DetailGeneralServiceDto;
+import com.example.school_api.exceptions.ClassroomNotFoundException;
+import com.example.school_api.exceptions.GeneralDuplicatedException;
+import com.example.school_api.exceptions.GeneralNotFoundException;
+import com.example.school_api.exceptions.IsAlreadyDesactivedException;
 import com.example.school_api.repositories.ClassroomRepository;
 import com.example.school_api.repositories.GeneralServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +27,15 @@ public class GeneralService {
     private ClassroomRepository classroomRepository;
 
 
-    public SchoolGeneral createGeneralService(CreateGeneralServiceDto generalDto){
-        Classroom classroom = classroomRepository.getByName(generalDto.name());
+    public SchoolGeneral createGeneralService(CreateGeneralServiceDto generalDto) throws ClassroomNotFoundException, GeneralDuplicatedException {
+        Classroom classroom = classroomRepository.getByName(generalDto.classroomName());
+        SchoolGeneral general = generalServiceRepository.getByNameAndIsActiveTrue(generalDto.name());
+        if(classroom == null){
+            throw new ClassroomNotFoundException();
+        }
+        if(general != null){
+            throw new GeneralDuplicatedException(general.getName());
+        }
         SchoolGeneral schoolGeneral = new SchoolGeneral(generalDto,classroom);
         return generalServiceRepository.save(schoolGeneral);
     }
@@ -36,25 +48,32 @@ public class GeneralService {
         return generalServiceRepository.findAllByIsActiveTrue().stream().map(DetailGeneralServiceDto::new).collect(Collectors.toList());
     }
 
-    public DetailGeneralServiceDto getGeneralById(String id){
-        SchoolGeneral schoolGeneral = generalServiceRepository.getReferenceById(id);
+    public DetailGeneralServiceDto getGeneralById(String id) throws GeneralNotFoundException {
+        SchoolGeneral schoolGeneral = generalServiceRepository.findById(id).orElseThrow(()-> new GeneralNotFoundException());
         return new DetailGeneralServiceDto(schoolGeneral);
     }
 
-    public DetailGeneralServiceDto getGeneralByName(String name){
+    public DetailGeneralServiceDto getGeneralByName(String name) throws GeneralNotFoundException {
         SchoolGeneral schoolGeneral = generalServiceRepository.getByName(name);
+        if(schoolGeneral == null){
+            throw new GeneralNotFoundException();
+        }
         return new DetailGeneralServiceDto(schoolGeneral);
     }
 
-    public void updateGeneral(String id, CreateGeneralServiceDto generalDto){
-        SchoolGeneral general =generalServiceRepository.getReferenceById(id);
-        Classroom classroom = classroomRepository.getByName(generalDto.classroomName());
-        general.updateGeneral(generalDto, classroom);
+    public void updateGeneral(String id, CreateGeneralServiceDto generalDto) throws GeneralNotFoundException {
+        System.out.println(id);
+        SchoolGeneral general =generalServiceRepository.findById(id).orElseThrow(()->new GeneralNotFoundException());
+        System.out.println(general);
+        general.updateGeneral(generalDto);
         generalServiceRepository.save(general);
     }
 
-    public void desactiveGeneral(String id){
-        SchoolGeneral general =generalServiceRepository.getReferenceById(id);
+    public void desactiveGeneral(String id) throws GeneralNotFoundException, IsAlreadyDesactivedException {
+        SchoolGeneral general =generalServiceRepository.findById(id).orElseThrow(()-> new GeneralNotFoundException());
+        if(!general.getIsActive()){
+            throw new IsAlreadyDesactivedException(general.getName());
+        }
         general.disableAnEmplooye();
         generalServiceRepository.save(general);
     }

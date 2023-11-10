@@ -1,6 +1,7 @@
 package com.example.school_api.domain;
 
 import com.example.school_api.dtos.CreateGeneralServiceDto;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,10 +15,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SchoolGeneral extends Employee{
-    @OneToOne
+    @ManyToOne
     @JoinTable(name = "service_classroom",
             joinColumns = {@JoinColumn(name = "general_services_id")},
             inverseJoinColumns = {@JoinColumn(name = "classrooms_id")})
+    @JsonManagedReference
     private Classroom classroom;
 
     public SchoolGeneral(CreateGeneralServiceDto generalDto, Classroom classroom) {
@@ -25,7 +27,7 @@ public class SchoolGeneral extends Employee{
         this.classroom = classroom;
     }
 
-    public void updateGeneral(CreateGeneralServiceDto generalDto, Classroom classroom) {
+    public void updateGeneral(CreateGeneralServiceDto generalDto) {
         if(generalDto.name() != null && !generalDto.name().isEmpty()){
             this.setName(generalDto.name());
         }
@@ -34,9 +36,6 @@ public class SchoolGeneral extends Employee{
         }
         if(generalDto.salary() != null && !generalDto.salary().toString().isEmpty()){
             this.setSalary(generalDto.salary());
-        }
-        if(classroom != null){
-            this.classroom = classroom;
         }
     }
 }

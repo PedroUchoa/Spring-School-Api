@@ -22,7 +22,7 @@ public class GeneralController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Void> createGeneralService(@RequestBody CreateGeneralServiceDto generalServiceDto, UriComponentsBuilder componentsBuilder){
+    public ResponseEntity<Void> createGeneralService(@RequestBody CreateGeneralServiceDto generalServiceDto, UriComponentsBuilder componentsBuilder)throws Exception{
       SchoolGeneral general = generalService.createGeneralService(generalServiceDto);
       URI uri = componentsBuilder.path("/general/{id}").buildAndExpand(general.getId()).toUri();
       return ResponseEntity.created(uri).build();
@@ -40,28 +40,28 @@ public class GeneralController {
         return ResponseEntity.ok().body(generalServiceDtos);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<DetailGeneralServiceDto> getGeneralById(@PathVariable String id){
+    @GetMapping("/value/{id}")
+    public ResponseEntity<DetailGeneralServiceDto> getGeneralById(@PathVariable String id)throws Exception{
         DetailGeneralServiceDto generalServiceDto = generalService.getGeneralById(id);
         return ResponseEntity.ok().body(generalServiceDto);
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<DetailGeneralServiceDto> getGeneralByName(@PathVariable String name){
+    public ResponseEntity<DetailGeneralServiceDto> getGeneralByName(@PathVariable String name)throws Exception{
         DetailGeneralServiceDto generalServiceDto = generalService.getGeneralByName(name);
         return ResponseEntity.ok().body(generalServiceDto);
     }
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<Void> updateGeneral(@PathVariable String id, @RequestBody CreateGeneralServiceDto serviceDto){
+    public ResponseEntity<Void> updateGeneral(@PathVariable String id, @RequestBody CreateGeneralServiceDto serviceDto)throws Exception{
         generalService.updateGeneral(id,serviceDto);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Void> disableGenetal(@PathVariable String id){
+    public ResponseEntity<Void> disableGenetal(@PathVariable String id)throws Exception{
         generalService.desactiveGeneral(id);
         return ResponseEntity.noContent().build();
     }
