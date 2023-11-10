@@ -22,7 +22,7 @@ public class ClassroomController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Void> createClassroom(@RequestBody CreateClassroomDto classroomDto, UriComponentsBuilder componentsBuilder){
+    public ResponseEntity<Void> createClassroom(@RequestBody CreateClassroomDto classroomDto, UriComponentsBuilder componentsBuilder)throws Exception {
         Classroom classroom = classroomService.createClassroom(classroomDto);
         URI uri = componentsBuilder.path("/classroom/{id}").buildAndExpand(classroom.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -35,19 +35,19 @@ public class ClassroomController {
     }
 
     @GetMapping("name/{name}")
-    public ResponseEntity<DetailClassroomDto> getByName(@PathVariable String name){
+    public ResponseEntity<DetailClassroomDto> getByName(@PathVariable String name)throws Exception{
         DetailClassroomDto classroomDto = classroomService.getByName(name);
         return ResponseEntity.ok().body(classroomDto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DetailClassroomDto> getById(@PathVariable String id){
+    public ResponseEntity<DetailClassroomDto> getById(@PathVariable String id)throws Exception{
         DetailClassroomDto classroomDto = classroomService.getById(id);
         return ResponseEntity.ok().body(classroomDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateClassroom(@PathVariable String id, @RequestBody CreateClassroomDto classroomDto){
+    public ResponseEntity<Void> updateClassroom(@PathVariable String id, @RequestBody CreateClassroomDto classroomDto)throws Exception{
         classroomService.updateClassroom(id, classroomDto);
         return ResponseEntity.noContent().build();
     }
