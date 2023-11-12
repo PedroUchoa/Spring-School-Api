@@ -1,4 +1,4 @@
-package com.example.school_api.exceptions;
+package com.example.school_api.infra.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

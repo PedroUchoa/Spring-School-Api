@@ -6,7 +6,7 @@ import com.example.school_api.domain.SchoolSubject;
 import com.example.school_api.dtos.CreateGradeDto;
 import com.example.school_api.dtos.DetailGradesDto;
 import com.example.school_api.dtos.UpdateGradeDto;
-import com.example.school_api.exceptions.*;
+import com.example.school_api.infra.exceptions.*;
 import com.example.school_api.repositories.SchoolGradesRepository;
 import com.example.school_api.repositories.SchoolReportRepository;
 import com.example.school_api.repositories.SchoolSubjectRepository;

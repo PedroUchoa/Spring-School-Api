@@ -4,7 +4,7 @@ import com.example.school_api.domain.SchoolReport;
 import com.example.school_api.domain.Student;
 import com.example.school_api.dtos.CreateReportDTO;
 import com.example.school_api.dtos.DetailReportDto;
-import com.example.school_api.exceptions.*;
+import com.example.school_api.infra.exceptions.*;
 import com.example.school_api.repositories.SchoolReportRepository;
 import com.example.school_api.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;

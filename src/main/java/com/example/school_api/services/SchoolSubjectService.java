@@ -3,7 +3,7 @@ package com.example.school_api.services;
 import com.example.school_api.domain.SchoolSubject;
 import com.example.school_api.dtos.CreateSubjectDto;
 import com.example.school_api.dtos.DetailSubjectDto;
-import com.example.school_api.exceptions.SubjectNotFoundException;
+import com.example.school_api.infra.exceptions.SubjectNotFoundException;
 import com.example.school_api.repositories.SchoolSubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

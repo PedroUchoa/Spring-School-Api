@@ -1,4 +1,4 @@
-package com.example.school_api.exceptions;
+package com.example.school_api.infra.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -85,6 +85,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AdministrationNotFoundException.class)
     public ResponseEntity<String> handleAdministrationNotFoundException(Exception ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage() + "\n" + ex.getClass());
+    }
+
+    @ExceptionHandler(DuplicatedLoginException.class)
+    public ResponseEntity<String> handleDuplicatedLoginException(Exception ex){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage() + "\n" + ex.getClass());
     }
 
 }

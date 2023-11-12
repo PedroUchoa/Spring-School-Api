@@ -2,13 +2,12 @@ package com.example.school_api.services;
 
 import com.example.school_api.domain.Classroom;
 import com.example.school_api.domain.SchoolGeneral;
-import com.example.school_api.domain.SchoolSubject;
 import com.example.school_api.dtos.CreateGeneralServiceDto;
 import com.example.school_api.dtos.DetailGeneralServiceDto;
-import com.example.school_api.exceptions.ClassroomNotFoundException;
-import com.example.school_api.exceptions.GeneralDuplicatedException;
-import com.example.school_api.exceptions.GeneralNotFoundException;
-import com.example.school_api.exceptions.IsAlreadyDesactivedException;
+import com.example.school_api.infra.exceptions.ClassroomNotFoundException;
+import com.example.school_api.infra.exceptions.GeneralDuplicatedException;
+import com.example.school_api.infra.exceptions.GeneralNotFoundException;
+import com.example.school_api.infra.exceptions.IsAlreadyDesactivedException;
 import com.example.school_api.repositories.ClassroomRepository;
 import com.example.school_api.repositories.GeneralServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
