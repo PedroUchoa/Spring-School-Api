@@ -33,7 +33,7 @@ O Sistema de School-Api é uma aplicação desenvolvida em Java, utilizando o fr
 
 ## Configuração do Ambiente de Desenvolvimento e execução
 
-1. Clone o repositório: git clone https://github.com/seu-usuario/seu-projeto.git
+1. Clone o repositório: git clone https://github.com/PedroUchoa/Spring-School-Api.
 2. Abra o projeto em sua IDE preferida.
 3. Configure o arquivo application.properties com as informações do banco de dados.
 4. Execute o projeto localmente através da IDA ou usando o maven.
