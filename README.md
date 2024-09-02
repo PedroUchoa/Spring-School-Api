@@ -12,7 +12,7 @@ O Sistema de School-Api é uma aplicação desenvolvida em Java, utilizando o fr
 - ``Testes Unitarios e de Integração``
 
 ## Endpoints
-### Abaixo você conferir alguns dos endpoints da aplicação:
+### Abaixo você pode conferir alguns dos endpoints da aplicação:
 
 ![image](https://github.com/PedroUchoa/Spring-School-Api/assets/98981764/a3d061e5-911f-4342-acdc-cf4efb7e8a8b)
 
